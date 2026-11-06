@@ -1,0 +1,16 @@
+{
+  "preferredVersions": {
+    "php": "8.5",
+    "wp": "7.1"
+  },
+  "steps": [
+    {
+      "step": "activateTheme",
+      "themeFolderName": "gwt-wordpress"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require '/wordpress/wp-load.php'; define('GWT_TEST_RUN', true); require '/wordpress/wp-content/themes/gwt-wordpress/tests/integration.php'; require '/wordpress/wp-content/themes/gwt-wordpress/tests/seed.php';"
+    }
+  ]
+}

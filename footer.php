@@ -1,90 +1,18 @@
 <?php
-/**
- * The template for displaying the footer
- *
- * Contains the closing of the id=main div and all content after
- *
- * @package GWT
- * @since Government Website Template 2.0
- */
+/** Government and agency footer. @package gwt_wp */
+defined( 'ABSPATH' ) || exit;
 ?>
-
-
-<!-- agency footer -->
-<?php if(is_active_sidebar('footer-1') || is_active_sidebar('footer-2') || is_active_sidebar('footer-3') ||
-is_active_sidebar('footer-4')): ?>
-<div id="footer" class="anchor" name="agencyfooter">
-    <div id="supplementary" class="row">
-        <?php if(is_active_sidebar('footer-1')): ?>
-        <div class="<?php govph_displayoptions( 'govph_position_agency_footer' ); ?>" role="complementary">
-            <?php do_action( 'before_sidebar' ); ?>
-            <?php dynamic_sidebar( 'footer-1' ) ?>
-        </div>
-        <?php endif; // if active footer-1 ?>
-
-        <?php if(is_active_sidebar('footer-2')): ?>
-        <div class="<?php govph_displayoptions( 'govph_position_agency_footer' ); ?>" role="complementary">
-            <?php do_action( 'before_sidebar' ); ?>
-            <?php dynamic_sidebar( 'footer-2' ) ?>
-        </div>
-        <?php endif; // if active footer-2 ?>
-
-        <?php if(is_active_sidebar('footer-3')): ?>
-        <div class="<?php govph_displayoptions( 'govph_position_agency_footer' ); ?>" role="complementary">
-            <?php do_action( 'before_sidebar' ); ?>
-            <?php dynamic_sidebar( 'footer-3' ) ?>
-        </div>
-        <?php endif; // if active footer-3 ?>
-
-        <?php if(is_active_sidebar('footer-4')): ?>
-        <div class="<?php govph_displayoptions( 'govph_position_agency_footer' ); ?>" role="complementary">
-            <?php do_action( 'before_sidebar' ); ?>
-            <?php dynamic_sidebar( 'footer-4' ) ?>
-        </div>
-        <?php endif; // if active footer-4 ?>
-    </div>
-</div>
-<?php endif; ?>
-
-<!-- standard footer -->
-<div id="gwt-standard-footer"></div>
-<!-- end standard footer -->
-
-</div><!-- #off-canvass-content -->
-</div><!-- #off-canvass-wrapper inner -->
-</div><!-- #off-canvass-wrapper -->
-
-<!-- standard footer script -->
-<script type="text/javascript">
-(function(d, s, id) {
-    var js, gjs = d.getElementById('gwt-standard-footer');
-
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//gwhs.i.gov.ph/gwt-footer/footer.js";
-    gjs.parentNode.insertBefore(js, gjs);
-}(document, 'script', 'gwt-footer-jsdk'));
-</script>
-
-<!-- philippine standard time script-->
-<script type="text/javascript" id="gwt-pst">
-(function(d, eId) {
-    var js, gjs = d.getElementById(eId);
-    js = d.createElement('script');
-    js.id = 'gwt-pst-jsdk';
-    js.src = "//gwhs.i.gov.ph/pst/gwtpst.js?" + new Date().getTime();
-    gjs.parentNode.insertBefore(js, gjs);
-}(document, 'gwt-pst'));
-
-var gwtpstReady = function() {
-    var firstPst = new gwtpstTime('pst-time');
-}
-</script>
-<!-- end philippine standard time -->
-
+<footer id="site-footer" class="site-footer">
+	<div class="site-container">
+		<?php gwt_wp_widget_group( array( 'footer-1', 'footer-2', 'footer-3', 'footer-4' ) ); ?>
+		<div class="footer-grid">
+			<div><img class="government-seal" src="<?php echo esc_url( get_template_directory_uri() . '/images/govph-seal-mono-footer.png' ); ?>" width="100" height="100" alt="<?php esc_attr_e( 'Republic of the Philippines seal', 'gwt_wp' ); ?>"><h2><?php esc_html_e( 'Republic of the Philippines', 'gwt_wp' ); ?></h2><p><?php esc_html_e( 'All content is in the public domain unless otherwise stated.', 'gwt_wp' ); ?></p></div>
+			<div><h2><?php esc_html_e( 'About GOVPH', 'gwt_wp' ); ?></h2><p><?php esc_html_e( 'Learn more about the Philippine government, its structure, how government works and the people behind it.', 'gwt_wp' ); ?></p><a href="https://www.gov.ph/">GOV.PH</a><br><a href="https://www.officialgazette.gov.ph/"><?php esc_html_e( 'Official Gazette', 'gwt_wp' ); ?></a></div>
+			<div><h2><?php esc_html_e( 'Government links', 'gwt_wp' ); ?></h2><ul><li><a href="https://president.gov.ph/"><?php esc_html_e( 'Office of the President', 'gwt_wp' ); ?></a></li><li><a href="https://www.senate.gov.ph/"><?php esc_html_e( 'Senate of the Philippines', 'gwt_wp' ); ?></a></li><li><a href="https://www.congress.gov.ph/"><?php esc_html_e( 'House of Representatives', 'gwt_wp' ); ?></a></li><li><a href="https://sc.judiciary.gov.ph/"><?php esc_html_e( 'Supreme Court', 'gwt_wp' ); ?></a></li></ul></div>
+		</div>
+		<div class="footer-bottom"><span><?php echo esc_html( get_bloginfo( 'name' ) ); ?></span><?php the_privacy_policy_link(); ?><a href="#main-content"><?php esc_html_e( 'Back to content ↑', 'gwt_wp' ); ?></a></div>
+	</div>
+</footer>
 <?php wp_footer(); ?>
-
-<div><a href="#page" id="back-to-top" style="display: inline;"><i class="fa fa-arrow-circle-up fa-2x"></i></a></div>
 </body>
-
 </html>

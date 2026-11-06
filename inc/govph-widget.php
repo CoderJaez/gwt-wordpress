@@ -1,144 +1,54 @@
 <?php
-/**
- * gwt_wp default widgets
- *
- * @package GWT
- * @since Government Website Template 2.0
- */
+/** Existing widget identifiers retained for migration. @package gwt_wp */
+defined( 'ABSPATH' ) || exit;
 
 class govph_widget_pst extends WP_Widget {
-
-	function __construct() {
-		// Instantiate the parent object
-		$widget_ops = array( 
-			'classname' => 'pst_widget',
-			'description' => 'A widget for Philippine Standard Time.',
-		);
-		parent::__construct( 'govph_widget_pst', 'Philippine Standard Time', $widget_ops );
+	public function __construct() {
+		parent::__construct( 'govph_widget_pst', __( 'Philippine time', 'gwt_wp' ) );
 	}
-
-
-	function widget( $args, $instance ) {
-		// Widget output
+	public function widget( $args, $instance ) {
 		echo $args['before_widget'];
-		echo '<div id="pst-container">
-				<div>Philippine Standard Time:</div>
-				<div id="pst-time"></div>
-			</div>';
+		echo '<h3 class="widget-title">' . esc_html__( 'Philippine time', 'gwt_wp' ) . '</h3><span data-ph-time>' . esc_html( wp_date( 'M j, Y, g:i a', null, new DateTimeZone( 'Asia/Manila' ) ) ) . '</span>';
 		echo $args['after_widget'];
 	}
 }
-
-function pst_register_widgets() {
-	register_widget( 'govph_widget_pst' );
-}
-
-add_action( 'widgets_init', 'pst_register_widgets' );
-
-
 
 class govph_widget_transparency extends WP_Widget {
-
-	function __construct() {
-		// Instantiate the parent object
-		$widget_ops = array( 
-			'classname' => 'transparency_widget',
-			'description' => 'A widget for Transparency Seal logo.',
-		);
-		parent::__construct( 'govph_widget_transparency', 'Transparency Seal', $widget_ops );
+	protected $image = 'transparency-seal-160x160.png';
+	protected $label = 'Transparency Seal';
+	protected $default_url = '';
+	public function __construct() {
+		parent::__construct( 'govph_widget_transparency', __( 'Transparency Seal', 'gwt_wp' ) );
 	}
-
-	function widget( $args, $instance ) {
-		// Widget output
+	public function widget( $args, $instance ) {
+		$url = isset( $instance['url'] ) && is_string( $instance['url'] ) ? esc_url( $instance['url'], array( 'https', 'http' ) ) : $this->default_url;
 		echo $args['before_widget'];
-		if ( ! empty( $instance['url'] ) ) {
-			echo '<a href="'.$instance['url'].'"><img id="tp-seal" src="'. get_template_directory_uri() .'/images/transparency-seal-160x160.png" alt="transparency seal logo" title="Transparency Seal"></a>';
+		if ( $url ) {
+			echo '<a href="' . esc_url( $url ) . '"><img src="' . esc_url( get_template_directory_uri() . '/images/' . $this->image ) . '" width="160" height="160" loading="lazy" alt="' . esc_attr( $this->label ) . '"></a>';
 		}
 		echo $args['after_widget'];
 	}
-
-	function update( $new_instance, $old_instance ) {
-		// Save widget options
-		$instance = array();
-		$instance['url'] = ( ! empty( $new_instance['url'] ) ) ? strip_tags( $new_instance['url'] ) : 'http://domain.gov.ph/transparency';
-
-		return $instance;
+	public function update( $new_instance, $old_instance ) {
+		return array( 'url' => isset( $new_instance['url'] ) && is_string( $new_instance['url'] ) ? esc_url_raw( $new_instance['url'], array( 'http', 'https' ) ) : '' );
 	}
-
-	function form( $instance ) {
-		// Output admin widget options form
-		$url = ! empty( $instance['url'] ) ? $instance['url'] : __( 'http://domain.gov.ph/transparency' );
-		?>
-<p style="text-align:center;"><img id="tp-seal"
-        src="<?php echo get_template_directory_uri(); ?>/images/transparency-seal-160x160.png"
-        alt="transparency seal logo" title="Transparency Seal" /></p>
-<p>
-    <label for="<?php echo esc_attr( $this->get_field_id( 'url' ) ); ?>"><?php _e( esc_attr( 'URL:' ) ); ?></label>
-    <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'url' ) ); ?>"
-        name="<?php echo esc_attr( $this->get_field_name( 'url' ) ); ?>" type="text"
-        value="<?php echo esc_attr( $url ); ?>">
-    <span class="description"><em>insert the url of transparency page</em></span>
-</p>
-<?php 
+	public function form( $instance ) {
+		$url = isset( $instance['url'] ) && is_string( $instance['url'] ) ? $instance['url'] : $this->default_url;
+		echo '<p><label for="' . esc_attr( $this->get_field_id( 'url' ) ) . '">' . esc_html__( 'Destination URL', 'gwt_wp' ) . '</label>';
+		echo '<input class="widefat" type="url" id="' . esc_attr( $this->get_field_id( 'url' ) ) . '" name="' . esc_attr( $this->get_field_name( 'url' ) ) . '" value="' . esc_attr( $url ) . '"></p>';
 	}
 }
 
-function transparency_register_widgets() {
+class govph_widget_foi extends govph_widget_transparency {
+	protected $image = 'foi-logo-160x160.png';
+	protected $label = 'Freedom of Information';
+	protected $default_url = 'https://www.foi.gov.ph/';
+	public function __construct() {
+		WP_Widget::__construct( 'govph_widget_foi', __( 'Freedom of Information', 'gwt_wp' ) );
+	}
+}
+function gwt_wp_register_government_widgets() {
+	register_widget( 'govph_widget_pst' );
 	register_widget( 'govph_widget_transparency' );
-}
-
-add_action( 'widgets_init', 'transparency_register_widgets' );
-
-
-
-class govph_widget_foi extends WP_Widget {
-
-	function __construct() {
-		// Instantiate the parent object
-		$widget_ops = array( 
-			'classname' => 'foi_widget',
-			'description' => 'A widget for Freedom of Information logo.',
-		);
-		parent::__construct( 'govph_widget_foi', 'Freedom of Information', $widget_ops );
-	}
-
-	function widget( $args, $instance ) {
-		// Widget output
-		echo $args['before_widget'];
-		if ( ! empty( $instance['url'] ) ) {
-			echo '<a href="'.$instance['url'].'"><img id="foi-logo" src="'. get_template_directory_uri() .'/images/foi-logo-160x160.png" alt="freedom of information logo" title="Freedom of Informstion"></a>';
-		}
-		echo $args['after_widget'];
-	}
-
-	function update( $new_instance, $old_instance ) {
-		// Save widget options
-		$instance = array();
-		$instance['url'] = ( ! empty( $new_instance['url'] ) ) ? strip_tags( $new_instance['url'] ) : 'https://www.foi.gov.ph/';
-
-		return $instance;
-	}
-
-	function form( $instance ) {
-		// Output admin widget options form
-		$url = ! empty( $instance['url'] ) ? $instance['url'] : __( 'https://www.foi.gov.ph/' );
-		?>
-<p style="text-align:center;"><img id="foi-logo"
-        src="<?php echo get_template_directory_uri(); ?>/images/foi-logo-160x160.png" alt="freedom of information logo"
-        title="Freedom of Information" /></p>
-<p>
-    <label for="<?php echo esc_attr( $this->get_field_id( 'url' ) ); ?>"><?php _e( esc_attr( 'URL:' ) ); ?></label>
-    <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'url' ) ); ?>"
-        name="<?php echo esc_attr( $this->get_field_name( 'url' ) ); ?>" type="text"
-        value="<?php echo esc_attr( $url ); ?>">
-    <span class="description"><em>insert the url of freedom of information page</em></span>
-</p>
-<?php 
-	}
-}
-
-function foi_register_widgets() {
 	register_widget( 'govph_widget_foi' );
 }
-
-add_action( 'widgets_init', 'foi_register_widgets' );
+add_action( 'widgets_init', 'gwt_wp_register_government_widgets' );

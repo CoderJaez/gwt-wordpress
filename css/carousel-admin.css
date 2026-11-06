@@ -1,0 +1,68 @@
+.gwt-carousel-editor {
+  font-size: 13px;
+}
+.gwt-carousel-editor details {
+  border: 1px solid #c3c4c7;
+  padding: 12px;
+  margin-block: 12px;
+  background: #fff;
+}
+.gwt-carousel-editor summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding-block: 4px;
+}
+.gwt-carousel-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.gwt-carousel-field {
+  margin-block: 8px;
+  min-width: 0;
+}
+.gwt-carousel-field label {
+  display: block;
+  margin-bottom: 5px;
+}
+.gwt-carousel-field input[type="checkbox"] {
+  margin-inline-end: 6px;
+}
+.gwt-carousel-editor .widefat {
+  max-width: 100%;
+}
+.gwt-carousel-media {
+  background: #f0f0f1;
+  padding: 12px;
+  margin-block: 12px;
+}
+.gwt-carousel-media-preview {
+  display: block;
+  max-width: 100%;
+  max-height: 160px;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+.gwt-carousel-slide-actions,
+.gwt-carousel-preview-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  align-items: center;
+}
+.gwt-carousel-preview {
+  width: 100%;
+  min-height: 520px;
+  border: 1px solid #c3c4c7;
+  background: #f5f7fa;
+}
+.gwt-carousel-editor [hidden] {
+  display: none;
+}
+.gwt-carousel-editor button:focus-visible,
+.gwt-carousel-editor summary:focus-visible {
+  outline: 2px solid #2271b1;
+  outline-offset: 2px;
+}

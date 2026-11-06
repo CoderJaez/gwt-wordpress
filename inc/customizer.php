@@ -1,27 +1,21 @@
 <?php
-/**
- * gwt_wp Theme Customizer
- *
- * @package GWT
- * @since Government Website Template 2.0
- */
+/** Settings protected by core Customizer capability and nonce checks. @package gwt_wp */
+defined( 'ABSPATH' ) || exit;
 
-/**
- * Add postMessage support for site title and description for the Theme Customizer.
- *
- * @param WP_Customize_Manager $wp_customize Theme Customizer object.
- */
 function gwt_wp_customize_register( $wp_customize ) {
-	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
-	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+	$wp_customize->add_section( 'gwt_home', array( 'title' => __( 'DILG homepage', 'gwt_wp' ), 'priority' => 35 ) );
+	$fields = array(
+		'gwt_agency_name' => array( __( 'Agency name', 'gwt_wp' ), gwt_wp_identity( 'govph_agency_name', get_bloginfo( 'name' ) ), 'sanitize_text_field', 'text' ),
+		'gwt_agency_tagline' => array( __( 'Agency tagline', 'gwt_wp' ), gwt_wp_identity( 'govph_agency_tagline', get_bloginfo( 'description' ) ), 'sanitize_text_field', 'text' ),
+		'gwt_intro_title' => array( __( 'Headline', 'gwt_wp' ), __( 'Serving communities. Strengthening local governance.', 'gwt_wp' ), 'sanitize_text_field', 'text' ),
+		'gwt_intro_text' => array( __( 'Introduction', 'gwt_wp' ), __( 'Working together for peaceful, safe, and resilient communities, with accountable and responsive local government.', 'gwt_wp' ), 'sanitize_textarea_field', 'textarea' ),
+		'gwt_services_url' => array( __( 'Services page URL', 'gwt_wp' ), '', 'esc_url_raw', 'url' ),
+		'gwt_transparency_url' => array( __( 'Transparency page URL', 'gwt_wp' ), '', 'esc_url_raw', 'url' ),
+		'gwt_contact_url' => array( __( 'Contact page URL', 'gwt_wp' ), '', 'esc_url_raw', 'url' ),
+	);
+	foreach ( $fields as $id => $field ) {
+		$wp_customize->add_setting( $id, array( 'default' => $field[1], 'sanitize_callback' => $field[2], 'capability' => 'edit_theme_options' ) );
+		$wp_customize->add_control( $id, array( 'label' => $field[0], 'type' => $field[3], 'section' => 'gwt_home' ) );
+	}
 }
 add_action( 'customize_register', 'gwt_wp_customize_register' );
-
-/**
- * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
- */
-function gwt_wp_customize_preview_js() {
-	wp_enqueue_script( 'gwt_wp_customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), '20130508', true );
-}
-add_action( 'customize_preview_init', 'gwt_wp_customize_preview_js' );

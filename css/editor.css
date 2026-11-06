@@ -1,0 +1,42 @@
+/* Match the editor canvas to the public reading experience. */
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: #2d2038;
+  line-height: 1.7;
+}
+.editor-styles-wrapper {
+  background: #fff;
+}
+.wp-block {
+  max-width: 800px;
+}
+.wp-block[data-align="wide"] {
+  max-width: 1120px;
+}
+.wp-block[data-align="full"] {
+  max-width: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #3f0868;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+}
+a {
+  color: #6a0dad;
+  text-underline-offset: 0.22em;
+}
+blockquote {
+  border-inline-start: 4px solid #ffd700;
+  padding: 1rem 1.5rem;
+  background: #f7f1fa;
+}

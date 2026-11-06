@@ -1,14 +1,10 @@
 <?php
-/**
- * The template for displaying search forms in gwt_wp
- *
- * @package GWT
- * @since Government Website Template 2.0
- */
+/** Core read-only search endpoint. @package gwt_wp */
+defined( 'ABSPATH' ) || exit;
+$gwt_search_id = wp_unique_id( 'site-search-' );
 ?>
 <form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-    <input type="search" class="search-field"
-        placeholder="<?php echo esc_attr_x( 'Search &hellip;', 'placeholder', 'gwt_wp' ); ?>"
-        value="<?php echo esc_attr( get_search_query() ); ?>" name="s"
-        title="<?php _ex( 'Search for:', 'label', 'gwt_wp' ); ?>">
+	<label class="screen-reader-text" for="<?php echo esc_attr( $gwt_search_id ); ?>"><?php esc_html_e( 'Search the website', 'gwt_wp' ); ?></label>
+	<input id="<?php echo esc_attr( $gwt_search_id ); ?>" type="search" name="s" value="<?php echo esc_attr( get_search_query( false ) ); ?>" placeholder="<?php esc_attr_e( 'Search the website…', 'gwt_wp' ); ?>">
+	<button type="submit"><?php esc_html_e( 'Search', 'gwt_wp' ); ?></button>
 </form>

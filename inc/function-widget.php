@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 /**
  * Register widgetized area
  * This theme uses wp_nav_menu() in one location.
@@ -8,6 +9,15 @@
  */
  
 function gwt_wp_widgets_init() {
+	register_sidebar( array(
+		'name'          => __( 'Header', 'gwt_wp' ),
+		'id'            => 'header-widget',
+		'description'   => __( 'Replaces the header logo and agency name when populated. Add an Image, Group, or other branding block. Leave empty to use Site Identity.', 'gwt_wp' ),
+		'before_widget' => '<div id="%1$s" class="widget header-widget %2$s">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
+	) );
 	register_nav_menus( array(
 		'aux_nav'		=> __( 'Auxiliary Menu', 'gwt_wp' ),
 		'topbar_left' 	=> __( 'Left Menu Top bar', 'gwt_wp' ),

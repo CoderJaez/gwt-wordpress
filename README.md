@@ -1,183 +1,46 @@
-#Government Web Template (GWT) for WordPress
+# GWT DILG for WordPress
 
-Use this as a a guide for creating your banner slider images:
+## Current update: 29.2.0 — GAD color scheme
 
-- Image should be inserted as a featured image, full size
-- Caption input is on the title field
-- Linked article should be indicated in the content field
+The theme now uses violet **#6A0DAD**, lavender **#C8A2C8**, white **#FFFFFF**, and gold **#FFD700**. Deep violet supports headings, navigation, and carousel overlays; pale lavender backgrounds keep body text readable. Links, buttons, borders, footer, carousel controls, and block-editor colors share the new palette. Existing palette slugs and CSS variable names remain compatible. Explicitly chosen widget colors, inline content colors, and uploaded artwork retain their own colors.
 
-## Known bugs and requests for enhancements (RFEs)
+Installable package: **gwt-dilg-29.2.0.zip**. Build with `python tests/package.py`.
 
-For a list of known issues and RFEs, check the [issue tracking system](https://github.com/iGovPhil/gwt-wordpress/issues).
+## Previous update: 29.1.0 — single-slide slideshow
 
-## Future updates
+Carousel now displays **one slide at a time on every device**, including existing widgets previously configured with multiple columns. Horizontal Slide moves the outgoing and incoming slides across the full banner width. Choose **Slide horizontally, Fade, Slide vertically, or None** under **Appearance → Widgets → Carousel → Playback → Animation**; adjust **Transition speed** to control duration. New widgets default to Slide horizontally. Existing saved Fade selections remain respected.
 
-- Tabbed Theme Options
+The Carousel is now a configurable native WordPress widget with manual slide editing, Media Library images, dynamic content, responsive layouts, text overlays, and independent playback controls. The **Header** widget remains separate. On the posts-based homepage, **Carousel** appears below navigation and replaces the former introduction.
 
-## Future updates
+The theme uses its existing WordPress widget architecture, PHP, CSS, and vanilla JavaScript. No page builder, carousel library, CDN, or front-end build step is required.
 
-**26.1.0**
+### Add a carousel
 
-- [Added] Add to Share Social Icons to Facebook, Twitter, Pinterest, Linkedin, Whatsapp, Reddit
-- [Added] Custom Menu colors and custom menu font colors on steady and hover
-- [Enhance] Darker theme on the footer to highlight the philippine government logo
+1. Open **Appearance → Widgets** and add **Carousel** to the **Carousel** area. In the block-based widgets editor, use the **Legacy Widget** block and choose **Carousel**.
+2. Choose **Manual slides**, click **Add Slide**, and select an image from the Media Library. Enter the required slide title.
+3. Optionally add a mobile image, alt text, subtitle, description, two links, category/tag label, date, and badge. Each slide has enable, duplicate, move up/down, and remove controls.
+4. Configure the grouped layout, navigation, playback, and overlay settings. Click **Update preview**, or enable **Live preview**, then save/update the widget screen to publish.
+5. To use the saved carousel on a page, insert a core **Shortcode** block and copy the complete `[gwt_carousel ref="…"]` shortcode shown in the widget editor. Each placement operates independently. Existing numeric-ID shortcodes remain supported.
 
-## CHANGE LOGS
+For artwork that already includes text, turn off **Show text overlay**. The primary URL then makes the image clickable. Use **Auto** height and consistently sized images to preserve the artwork's aspect ratio. Fixed heights use `object-fit: cover`; adjust focal position or supply mobile artwork to control cropping.
 
-**01/01/2022 to 04/01/2022**
+### Defaults and compatibility
 
-**Start Updates for 26.0.0**
+- One slide at a time; autoplay every **5,000 ms**; **600 ms horizontal slide** by default; previous/next arrows, dots, and counter.
+- Hover and inactive-tab pausing enabled. Keyboard focus pauses playback; manual interaction stops it by default. Play explicitly resumes. Reduced-motion preferences disable autoplay and animation.
+- Medium height **480px**, full available width, bottom-left overlay, maximum text width **650px**. Content can expand height to remain readable.
+- Manual slides support up to 30 entries; dynamic and Banner sources support up to 50 results. Incomplete/disabled manual slides and unpublished/password-protected dynamic content are excluded.
+- Existing widget IDs, the Carousel sidebar ID, Banner image records, and Header assignments are preserved. Existing instances without a source continue using **Banner images**. New empty widgets start in manual mode.
+- The former 50 ms interval is replaced with 5,000 ms, following the updated specification. Existing supported delays are retained. No database migration runs automatically.
+- Requires WordPress **6.6+** and PHP **8.2+**. Component integration tested with WordPress **7.1 / PHP 8.5.10**; PHP 8.2 syntax checks are also run.
 
-- [Updated] the jQuery and Foundation folder from its latest version to jQuery 3.6.0 and Foundation 6.7, PHP 7.4 compatibility (foundation.min.css will remain from the version of foundation 6.2)
-- [Disabled] restAPI if users do not login
-- [FIX] Make function of option center and left for header image logo
-- [FIX] Make slider Image visible on mobile view
-- [Change] For image size on post for mobile view
-- [Enabled] Search Bar as a default
-- [Added] Text Magnifier on Right Top Bar Menu (Enlarge Font Size, Reduce Font Size and Undo Font Size)
-- [Added] Justify text on contents as default
-- [FIX] Fix error on devtools for jQuery (To fix the issue with plugin Tabs with Accordions)
-- [Enable/Disable] Block Editor | Can be switch to Classic Editoron Widgets
-- [Enable/Disable] Block Editor | Can be switch to Classic Editor on Posts/Pages
-- [Added] Default Font Size for Text Heading if Image Logo is disabled in Theme Options Page
-- [Added] Customizeable colors for menus, menu fonts on steady and on hover **(Implemented/Drafted Code on GWT Theme/Subject For Approval)**
-- [Enhance] Masthead to flex when screen resizing | For screen with size >= 699px
-- [Fix] Slider Image bouncing when next | Conflict with Foundation 6.7
-- [Enhance] How to add icons on menus
-- [Added] Font weight bold for menus on hover and active
-- [Added] Option for Background Header Image to full width and default center
-- [Enhance] Foundation folder/file/code that uses relative URL to use absolute URL
-- [Fix] Default array on functions-options.php to prevent failing/crashing with call to sizeof @credits:gumacahin **(For Testing on Local)**
+See [CAROUSEL.md](CAROUSEL.md) for all settings, architecture, accessibility, security, files, and development instructions. See [MIGRATION.md](MIGRATION.md) for the earlier theme refactor and child-theme migration notes. [TESTING.md](TESTING.md) records verification scope.
 
-**10/04/2021 to 2022**
+Build the installable **gwt-dilg-29.2.0.zip** with `python tests/package.py`. Development tools, fixtures, and tests are excluded.
 
-- [FIX]Responsive Header Image for Mobile and Desktop View
-- [Added] FOI sidebar widget at the bottom of Transparency Seal Logo (Once click redirected to [https://www.foi.gov.ph])
-- [Added] Anti-Clickjacking
-- [Updated] Relative links for SSL compatibility
-- [Updated] Title and Content spacing
-- [Change] Page Title Position (As of the moment to be remain)**To be Review**
-- [Change] Auxiliary Menu Position above the Slider Image
-- [Tested] PHP codes to PHP version (7.4)
-  **End for 26.0.0**
+## Earlier major updates
 
-**04/04/2019**
-
-- Fix conditional display on rightsidebar
-
-**01/17/2019**
-
-- Fix missing jquery file issue causing to disable all scripts within the page
-
-**12/13/2018**
-
-- Fix theme missing color option issue
-- Added native style for alignleft alignright classes
-
-**03/07/2018**
-
-- Fix long text wrapping in menu
-
-**10/03/2017**
-
-- Added URL Link support for banner Slider
-
-**02/23/2017**
-
-- Fixed empty menu issue when nothing is assigned
-- Added automatic display of auxiliary menu if menu is present, removed theme option selection
-- Fixed banner left button bug.
-
-**07/22/2016**
-
-- [Update] Foundation version 6.2.2
-- [Features] Philippine Standard Time (PST)
-  - Font customization
-- [Features] Panel Top & Bottom section
-  - Background color customization
-- [Enhancement] Orbit Slider
-- [Enhancement] Responsive Mobile Menu
-- [Enhancement] Transparency Seal
-- [Enhancement] Accessibility Add-on
-  - High Contrast mode
-  - Skip to Content
-  - Skip to Footer
-
-**02/29/2016**
-
-- Fixed mega menu structure
-- Fixed banner slider full width
-- Added feature image on post
-- Added default widgets on theme activation
-  - transparency seal Logo widget
-  - philippine standard time widget
-- Added theme customization on template's theme option
-  - Masthead logo image with text
-    - agency name
-    - tagline
-    - font color
-    - image logo alt text
-  - Content panel and sidebar customization
-    - border width
-    - border color
-    - border radius
-    - background color
-  - Content header font size and rendering
-  - Agency Footer's background color customization
-- Changed version branding to version 2.0 (Pansit)
-- Removed the Accessibility Add-on
-  - High Contrast Mode
-  - Grayscale Mode
-  - Toggle font size
-
-**09/30/2015**
-
-- Fixed Agency Footer extra padding.
-- Changed the accessibility widget to right side
-
-**09/22/2015**
-
-- Added new accessibility features:
-  - Toggle High contrast mode
-  - Toggle Grey scale
-  - Popup Accessibility Statement
-- Fixed Breadcrumbs '/' after Youre Here:
-- Fixed Panel Top extra padding issue.
-- Added mega menu feature
-- Sticky top menu
-
-**04/10/2015**
-
-- Added drop shadow on drop down menu
-
-**03/19/2015**
-
-- Added breadcrumbs support
-
-**02/11/2015**
-
-- Smaller headings for Agency footer (use h3 tag)
-- Smaller headings for Content Post (use h5 tag)
-- Smaller headings for widgets
-- Banner title paddings
-- Remove box design on top and bottom panel, added custom class: box-mode
-- Smaller headings for Post Navigation (pagination) (use h4)
-- Automatic trim of character/word for Post lists
-- Responsive Logo Support
-- Accessibility shortcut bug fix
-- Created an option to automatically trim at specific characters/word for Post lists
-- Created an option to remove published date
-- Created an option to remove author
-- Removed box effect on Author
-
-**08/07/2014**
-
-- Revamped new design
-- Added new widget locations (New widget locations banner section 1, banner section 2, ear content 1, ear content 2 not yet usable)
-- For banner content, use featured image to upload images, use the content area for linking the image to an external page, use the title for captions
-
-**03/18/2014**
-
-- Full width template functions
-- Text decoration for standard footer links
-- Slider get functions
+- **28.2:** Image-only homepage carousel and millisecond timing; timing and controls superseded by version 29.
+- **28.1:** Restored separate Header widget; moved Carousel below navigation on the homepage.
+- **28.0:** Introduced the initial carousel widget.
+- **27:** Modernized the original government theme with a minimalist DILG palette, responsive navigation, block-editor support, local assets, and validation/escaping of settings and metadata. Preserved content, menu locations, widget areas, banners, and the legacy `[ef_slider]` static gallery shortcode.

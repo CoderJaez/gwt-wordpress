@@ -1,121 +1,42 @@
 <?php
-/**
- * gwt_wp functions and definitions
- *
- * @package gwt_wp
- */
+/** Theme bootstrap. @package gwt_wp */
+defined( 'ABSPATH' ) || exit;
 
-/**
- * Template Initialize
- */
-require get_template_directory() . '/inc/function-initialize.php';
+require_once get_template_directory() . '/inc/function-initialize.php';
+require_once get_template_directory() . '/inc/function-enqueue_scripts.php';
+require_once get_template_directory() . '/inc/function-widget.php';
+require_once get_template_directory() . '/inc/customizer.php';
+require_once get_template_directory() . '/inc/govph-widget.php';
+require_once get_template_directory() . '/inc/vendors/envato-flex-slider/envato-flex-slider.php';
+require_once get_template_directory() . '/inc/carousel-widget.php';
 
-/**
- * Register widgetized area
- */
-require get_template_directory() . '/inc/function-widget.php';
+/** Leave authentication and REST permissions to WordPress. */
+function gwt_wp_security_headers( $headers ) {
+	$headers['X-Content-Type-Options'] = $headers['X-Content-Type-Options'] ?? 'nosniff';
+	$headers['X-Frame-Options'] = $headers['X-Frame-Options'] ?? 'SAMEORIGIN';
+	$headers['Referrer-Policy'] = $headers['Referrer-Policy'] ?? 'strict-origin-when-cross-origin';
+	return $headers;
+}
+add_filter( 'wp_headers', 'gwt_wp_security_headers' );
 
-/**
- * Breadcrumbs
- */
-require get_template_directory() . '/inc/function-breadcrumbs.php';
-
-/**
- * Govph Excerpt
- */
-require get_template_directory() . '/inc/function-excerpt.php';
-
-/**
- * Enqueue scripts and styles
- */
-require get_template_directory() . '/inc/function-enqueue_scripts.php';
-
-/**
- * Disable comment functions
- */
-require get_template_directory() . '/inc/function-disable_comments.php';
-
-/**
- * GovPH default widgets
- */
-require get_template_directory() . '/inc/govph-widget.php';
-
-/**
- * Default sidebar contents
- */
-require get_template_directory() . '/inc/sidebar.php';
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Custom functions that act independently of the theme templates.
- */
-require get_template_directory() . '/inc/extras.php';
-
-/**
- * Customizer additions.
- */
-// require get_template_directory() . '/inc/customizer.php';
-
-/**
- * Load Jetpack compatibility file.
- */
-// require get_template_directory() . '/inc/jetpack.php';
-
-/**
- * Theme Options Page.
- */
-require get_template_directory() . '/inc/function-options.php';
-
-/**
- * Custom Post Types
- */
-// require get_template_directory() . '/inc/custom-post-types.php';
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
-
-/**
- * Envato Flexslider
- */
-require get_template_directory() . '/inc/vendors/envato-flex-slider/envato-flex-slider.php';
-
-/**
- * Disable rest api for users additions.
- */
-require get_template_directory() . '/inc/function-disable_api.php';
-
-/**
- * GWT only works in WordPress 4.4 or later.
- */
-if ( version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' ) ) {
-	require get_template_directory() . '/inc/back-compat.php';
+/** Render occupied legacy widget areas without changing saved assignments. */
+function gwt_wp_widget_group( $ids, $class = 'widget-grid' ) {
+	$active = array_filter( $ids, 'is_active_sidebar' );
+	if ( ! $active ) {
+		return;
+	}
+	echo '<div class="' . esc_attr( $class ) . '">';
+	foreach ( $active as $id ) {
+		echo '<div class="widget-area">';
+		dynamic_sidebar( $id );
+		echo '</div>';
+	}
+	echo '</div>';
 }
 
-function block_frames() {
-	header( 'X-FRAME-OPTIONS: SAMEORIGIN' );
+/** Read existing identity without rewriting the legacy options record. */
+function gwt_wp_identity( $key, $fallback = '' ) {
+	$options = get_option( 'govph_options', array() );
+	$value = is_array( $options ) ? ( $options[ $key ] ?? '' ) : '';
+	return is_string( $value ) && '' !== trim( $value ) ? $value : $fallback;
 }
-add_action( 'send_headers', 'block_frames', 10 );
-
-
-/**
- * Enable classic widgets or disabled gutenberg style for widgets.
- */
-require get_template_directory() . '/inc/function-enable-classic-widgets.php';
-
-/**
- * Enable classic posts or disabled gutenberg style for posts.
- */
-require get_template_directory() . '/inc/function-enable-classic-posts.php';
-
-?>

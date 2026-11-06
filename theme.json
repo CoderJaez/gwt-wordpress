@@ -1,0 +1,75 @@
+{
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {
+      "contentSize": "800px",
+      "wideSize": "1120px"
+    },
+    "color": {
+      "palette": [
+        {
+          "slug": "gad-violet",
+          "name": "GAD violet",
+          "color": "#6a0dad"
+        },
+        {
+          "slug": "gad-lavender",
+          "name": "GAD lavender",
+          "color": "#c8a2c8"
+        },
+        {
+          "slug": "gad-gold",
+          "name": "GAD gold",
+          "color": "#ffd700"
+        },
+        {
+          "slug": "dilg-blue",
+          "name": "GAD violet (legacy)",
+          "color": "#6a0dad"
+        },
+        {
+          "slug": "dilg-red",
+          "name": "GAD plum (legacy)",
+          "color": "#800080"
+        },
+        {
+          "slug": "dilg-yellow",
+          "name": "GAD gold (legacy)",
+          "color": "#ffd700"
+        },
+        {
+          "slug": "ink",
+          "name": "Ink",
+          "color": "#2d2038"
+        },
+        {
+          "slug": "paper",
+          "name": "Paper",
+          "color": "#f7f1fa"
+        },
+        {
+          "slug": "white",
+          "name": "White",
+          "color": "#ffffff"
+        }
+      ]
+    },
+    "typography": {
+      "fluid": true,
+      "fontFamilies": [
+        {
+          "slug": "system",
+          "name": "System",
+          "fontFamily": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "typography": {
+      "fontFamily": "var:preset|font-family|system",
+      "lineHeight": "1.7"
+    }
+  }
+}

@@ -1,61 +1,31 @@
 <?php
-/**
- * The main template file
- *
- * This is the most generic template file in a WordPress theme
- * and one of the two required files for a theme (the other being style.css).
- * It is used to display a page when nothing more specific matches a query.
- * E.g., it puts together the home page when no home.php file exists.
- *
- * @package GWT
- * @since Government Website Template 2.0
- */
-
-get_header(); 
-include_once('inc/banner.php');
+/** Shared listing template. @package gwt_wp */
+defined( 'ABSPATH' ) || exit;
+get_header();
 ?>
-<?php govph_displayoptions( 'govph_panel_top' ); ?>
-
-<div class="container-main" role="document">
-    <div id="main-content" class="row">
-        <div id="content" class="text-justify <?php govph_displayoptions( 'govph_content_position' ); ?>columns"
-            role="main">
-
-            <?php if ( have_posts() ) : ?>
-
-            <?php
-						// Start the loop.
-						while ( have_posts() ) : the_post();
-						/*
-						 * Include the Post-Format-specific template for the content.
-						 * If you want to override this in a child theme, then include a file
-						 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-						 */
-						get_template_part( 'template-parts/content', get_post_format() );
-						// End the loop.
-						endwhile;
-						gwt_wp_content_nav( 'nav-below' );
-
-						else :
-							get_template_part( 'no-results', 'index' ); 
-						endif; ?>
-        </div><!-- end content -->
-
-        <?php 
-				if(is_active_sidebar('left-sidebar')){
-					govph_displayoptions( 'govph_sidebar_left' );
-				}
-				?>
-        <?php 
-				if(is_active_sidebar('right-sidebar')){
-					govph_displayoptions( 'govph_sidebar_right' );
-				}
-				?>
-
-    </div>
+<main id="main-content" tabindex="-1">
+<?php if ( is_front_page() ) { get_template_part( 'template-parts/home', 'intro' ); } ?>
+<div class="site-container section">
+<?php gwt_wp_widget_group( array( 'panel-top-1', 'panel-top-2', 'panel-top-3', 'panel-top-4' ) ); ?>
+<header class="section-heading">
+	<?php if ( is_search() ) : ?>
+		<p class="eyebrow"><?php esc_html_e( 'Search', 'gwt_wp' ); ?></p><h1><?php printf( esc_html__( 'Results for “%s”', 'gwt_wp' ), esc_html( get_search_query( false ) ) ); ?></h1>
+	<?php elseif ( is_archive() ) : ?>
+		<h1><?php echo wp_kses_post( get_the_archive_title() ); ?></h1><?php the_archive_description( '<div class="archive-description">', '</div>' ); ?>
+	<?php else : ?>
+		<p class="eyebrow"><?php esc_html_e( 'Stay informed', 'gwt_wp' ); ?></p><?php echo is_front_page() ? '<h2>' : '<h1>'; ?><?php esc_html_e( 'Latest news & updates', 'gwt_wp' ); ?><?php echo is_front_page() ? '</h2>' : '</h1>'; ?>
+	<?php endif; ?>
+</header>
+<div class="content-layout<?php echo is_active_sidebar( 'left-sidebar' ) || is_active_sidebar( 'right-sidebar' ) ? ' has-sidebar' : ''; ?>">
+	<div class="content-column">
+	<?php if ( have_posts() ) : ?>
+		<div class="post-grid"><?php while ( have_posts() ) : the_post(); get_template_part( 'template-parts/content' ); endwhile; ?></div>
+		<?php the_posts_pagination( array( 'mid_size' => 1 ) ); ?>
+	<?php else : get_template_part( 'template-parts/content', 'none' ); endif; ?>
+	</div>
+	<?php get_sidebar(); ?>
 </div>
-
-
-<?php govph_displayoptions( 'govph_panel_bottom' ); ?>
-
+<?php gwt_wp_widget_group( array( 'panel-bottom-1', 'panel-bottom-2', 'panel-bottom-3', 'panel-bottom-4' ) ); ?>
+</div>
+</main>
 <?php get_footer(); ?>

@@ -1,17 +1,15 @@
 /*
- * Theme Name:		GWT-Wordpress 26.0.0 - Latest
- * Theme URI:		https://i.gov.ph
- * Description:		Custom WordPress theme based on the draft Unified Web Content Policy 
- *					prepared by the PCDSPO, DOST-ASTI, and DOST-ICTO. Theme is built on 
- *					HTML5 responsive WordPress framework based on ZURB's Foundation.
- *                  Updated by NGP and GOSD-GWHS
- * Version:			26.0.0
- * Author:			iGovPhil
- * Author URI:		https://i.gov.ph
- * License:			MIT License
- * License URI:		https://www.opensource.org/licenses/mit-license.php
- * Tags: 			theme-options, rtl-language-support, featured-images, editor-style, custom-menu, 
- *					responsive-layout, right-sidebar, left-sidebar, one-column, two-columns, three-columns
- */
-
-/** Your style here **/
+Theme Name: GWT DILG
+Theme URI: https://i.gov.ph
+Author: iGovPhil
+Author URI: https://i.gov.ph
+Description: A minimalist government theme with a GAD violet and lavender palette, with responsive layouts, accessible navigation, and modern WordPress editor support.
+Version: 29.2.0
+Requires at least: 6.6
+Requires PHP: 8.2
+License: MIT License
+License URI: https://www.opensource.org/licenses/mit-license.php
+Text Domain: gwt_wp
+Tags: custom-logo, custom-menu, featured-images, editor-style, wide-blocks, translation-ready, one-column, two-columns, right-sidebar
+*/
+/* Add site-specific overrides in a child theme. */

@@ -1,36 +1,12 @@
 <?php
-/**
- * The template for displaying 404 pages (not found)
- *
- * @package GWT
- * @since Government Website Template 2.0
- */
-
+/** Missing content. @package gwt_wp */
+defined( 'ABSPATH' ) || exit;
 get_header();
 ?>
-
-<div id="main-content" class="row container-main">
-    <div class="large-2 medium-2 columns">
-        <p></p>
-    </div>
-
-    <div class="large-8 medium-8 columns">
-        <div class="notfound">
-            <h1 class="page-title"><?php _e( 'Sorry, the page you are looking for cannot be found', 'gwt_wp' ); ?></h1>
-
-            <div class="page-content notfound">
-                <p>The page you requested may have been moved to a new location or removed from the site.
-                    <br>Go back to the <a href="<?php echo esc_url(home_url())?>">HOME PAGE</a> or find what you are
-                    looking for in the search box below.
-                </p>
-                <aside class="search-404"><?php get_search_form(); ?></aside>
-            </div>
-        </div>
-    </div>
-
-    <div class="large-2 medium-2 columns">
-        <p></p>
-    </div>
-</div>
-
+<main id="main-content" class="site-container section empty-state" tabindex="-1">
+<p class="eyebrow">404</p><h1><?php esc_html_e( 'This page could not be found.', 'gwt_wp' ); ?></h1>
+<p><?php esc_html_e( 'Try a search, or return to the homepage to find the information you need.', 'gwt_wp' ); ?></p>
+<?php get_search_form(); ?>
+<a class="button" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Return to home', 'gwt_wp' ); ?></a>
+</main>
 <?php get_footer(); ?>
